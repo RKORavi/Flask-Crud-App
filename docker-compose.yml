@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+  pythonapp:
+    build: ./product
+    links: 
+      - pgdb
+    volumes:
+      - ./product:/usr/src/app
+    ports:
+      - 5000:5000
+  pgdb:
+    image: postgres:latest
+    hostname: postgres_database
+    ports:
+      - 5401:5432
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test123
+      POSTGRES_DB: empdatabase

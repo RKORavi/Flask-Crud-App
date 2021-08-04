@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% block title %} Home {% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-12">
+                <div class="jumbotron p-3">
+                    <h2>Manage Employees <button type="button" class="btn btn-success float-right"
+                        data-toggle="modal" data-target="#mymodal">Add Employee</button></h2>
+                    {% with messages=get_flashed_messages()%}
+                        {% if messages%}
+                            {% for message in messages %}
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    {{message}}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <table class="table table-hover table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>EMAIL</th>
+                            <th>PHONE</th>
+                            <th>ACTION</th>
+
+                        </tr>
+                        {% for employ in employees %}
+                        <tr>
+                            
+                            
+                            <td>{{employ.id}}</td>
+                            <td>{{employ.name}}</td>
+                            <td>{{employ.email}}</td>
+                            <td>{{employ.phone}}</td>
+                            <td>
+                                <a href="/update/{{employ.id}}" class="btn btn-primary" data-toggle="modal" data-target="#modaledit{{employ.id}}">EDIT</a>
+                                <a href="/delete/{{employ.id}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')">DELETE</a>
+
+                            </td>
+
+
+                        </tr>
+
+            <!-- Modal Edit Employee -->
+<div >
+    <div id="modaledit{{employ.id}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Update Employee details</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form action="{{url_for('update')}}" method="POST">
+                        <div class="form-group">
+                            <label>NAME:</label>
+                            <input type="hidden" name="id" value="{{employ.id}}">
+                            <input type="text" class="form-control" name="name" value="{{employ.name}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>EMAIL:</label>
+                            <input type="text" class="form-control" name="email" value="{{employ.email}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>PHONE:</label>
+                            <input type="text" class="form-control" name="phone" value="{{employ.phone}}">
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Update</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+            {% endfor %}
+        </table>
+
+
+
+                </div>
+                        <!-- Modal Add Employee -->
+                <div >
+                    <div id="mymodal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+
+                                    <h4 class="modal-title">Add Employee</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form action="{{url_for('insert')}}" method="POST">
+                                        <div class="form-group">
+                                            <label>NAME:</label>
+                                            <input type="text" class="form-control" name="name" required="1">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>EMAIL:</label>
+                                            <input type="text" class="form-control" name="email" required="1">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>PHONE:</label>
+                                            <input type="text" class="form-control" name="phone" required="1">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button class="btn btn-success" type="submit">Add Employee</button>
+
+                                        </div>
+
+                                    </form>
+
+
+                                </div>
+                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                
+
+        </div>
+
+    </div>    
+
+
+{% endblock %}
