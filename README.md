@@ -4,10 +4,10 @@ Prerequisite
 1. Docker
 2. Docker-compose
 
-To run this flask app, chage directory to folder containing docker-compose.yml file then run the following command.
->
-docker-compose up --build
->
+To run flask app follow these steps:
+1. git clone git@github.com:RKORavi/Flask-Crud-App.git
+2. cd Flask-Crud-App
+3. run: docker-compose up --build
 
 Type url in your browser. e.g: http://172.18.0.2:5000/
 
